@@ -1,11 +1,12 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { randomUUID } from 'node:crypto';
+
 interface Player {
   id: string;
   name: string;
   age: number;
-  available: boolean;
+  available?: boolean;
 }
 
 let players: Player[] = [
@@ -21,7 +22,7 @@ const typeDefs = `#graphql
     id: ID!
     name: String!
     age: Int!
-    available: Boolean!
+    available: Boolean
   }
 
   type Query {
