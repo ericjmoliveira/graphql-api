@@ -32,7 +32,7 @@ const typeDefs = `#graphql
   type Mutation {
     addPlayer(name: String!, age: Int!): Player
     updatePlayer(id: ID!): Player
-    deletePlayer(id: ID!): String
+    deletePlayer(id: ID!): Boolean
   }
 `;
 
@@ -57,15 +57,11 @@ const resolvers = {
     },
 
     updatePlayer(_: Player, args: { id: string }) {
-      const newPlayers = players.map((player) => {
+      players.forEach((player) => {
         if (player.id === args.id) {
           player.available = !player.available;
         }
-
-        return player;
       });
-
-      players = newPlayers;
 
       return players.find((player) => player.id === args.id);
     },
@@ -75,7 +71,7 @@ const resolvers = {
 
       players = newPlayers;
 
-      return 'Player deleted!';
+      return true;
     }
   }
 };
